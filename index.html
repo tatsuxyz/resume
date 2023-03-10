@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>résumé</title>
+  </head>
+
+  <body>
+    <div id="main"></div>
+
+    <hr />
+
+    <div class="print-container">
+      <button onclick="window.print();">Print</button>
+    </div>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        background-color: #fcfaf2;
+        color: #1c1c1c;
+        max-width: 760px;
+        margin: 0 1rem;
+      }
+
+      .print-container {
+        margin: 2rem auto;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .print-container button {
+        background-color: #fff;
+        padding: 0.5rem 2rem;
+        border: 2px solid #1c1c1c;
+        border-radius: 9999px;
+        transition: 200ms;
+        cursor: pointer;
+      }
+
+      .print-container button:hover {
+        background-color: #1c1c1c;
+        color: #fff;
+      }
+
+      @media (min-width: 1024px) {
+        body {
+          margin: 0 auto;
+        }
+      }
+
+      @media print {
+        .print-container {
+          display: none;
+        }
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+
+    <script>
+      const md = window.markdownit();
+      const main = document.querySelector("#main");
+
+      fetch("./resume.md")
+        .then((response) => response.text())
+        .then((markdown) => {
+          const html = md.render(markdown);
+          main.innerHTML = html;
+        });
+    </script>
+  </body>
+</html>
